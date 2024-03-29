@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        /* 设置倒计时容器的样式 */
+        .countdown {
+            width: 240px;
+            height: 305px;
+            text-align: center;
+            line-height: 1;
+            color: #fff;
+            background-color: brown;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+ 
+        /* 设置倒计时容器中"下一个"元素的样式 */
+        .countdown .next {
+            font-size: 16px;
+            margin: 25px 0 14px;
+        }
+ 
+        /* 设置倒计时容器中标题的样式 */
+        .countdown .title {
+            font-size: 33px;
+        }
+ 
+        /* 设置倒计时容器中提示信息的样式 */
+        .countdown .tips {
+            margin-top: 80px;
+            font-size: 23px;
+        }
+ 
+        /* 设置倒计时容器中小号字体的样式 */
+        .countdown small {
+            font-size: 17px;
+        }
+ 
+        /* 设置倒计时数值部分的样式 */
+        .countdown .clock {
+            width: 142px;
+            margin: 18px auto 0;
+            overflow: hidden;
+        }
+ 
+        /* 设置倒计时数值部分中每个数字框的样式 */
+        .countdown .clock span,
+        .countdown .clock i {
+            display: block;
+            text-align: center;
+            line-height: 34px;
+            font-size: 23px;
+            float: left;
+        }
+ 
+        /* 设置倒计时数值部分中数字框的样式 */
+        .countdown .clock span {
+            width: 34px;
+            height: 34px;
+            border-radius: 2px;
+            background-color: #303430;
+        }
+ 
+        /* 设置倒计时数值部分中冒号的样式 */
+        .countdown .clock i {
+            width: 20px;
+            font-style: normal;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div class="countdown">
+        <p class="next">今天是2023年2月22日</p> <!-- 显示日期的元素 -->
+        <p class="title">下班倒计时</p> <!-- 显示标题的元素 -->
+        <p class="clock">
+            <!-- 显示倒计时数值的元素 -->
+            <span id="hour"></span> <!-- 显示小时数的元素 -->
+            <i>:</i> <!-- 显示冒号分隔符的元素 -->
+            <span id="minute"></span> <!-- 显示分钟数的元素 -->
+            <i>:</i> <!-- 显示冒号分隔符的元素 -->
+            <span id="second"></span> <!-- 显示秒数的元素 -->
+        </p>
+        <p class="tips">17:30:00下班</p> <!-- 显示下班时间的元素 -->
+    </div>
+    <script>
+        // 选中时分秒
+    const hour = document.querySelector('#hour')
+    const minute = document.querySelector('#minute')
+    const second = document.querySelector('#second')
+    const next = document.querySelector('.next')
+    // 设置定时器，每秒钟更新倒计时数值
+    setInterval(function(){
+      const time = new Date()  // 获取当前时间
+      const targetTime = new Date(2060, 9, 1, 17, 30, 0)  // 设置目标下班时间
+      const diff = targetTime.getTime() - time.getTime()  // 计算倒计时的毫秒数
+            
+      let hours = Math.floor(diff % (24 * 3600 * 1000) / (3600 * 1000))  // 计算剩余小时数
+      let minutes = Math.floor(diff % (3600 * 1000) / (60 * 1000))  // 计算剩余分钟数
+      let seconds = Math.floor(diff % (60 * 1000) / 1000)  // 计算剩余秒数
+      
+      // 如果时分秒的值小于10，就在数字前面加个0，这里用的三元运算符，也可以使用if语句
+      hours = hours<10? '0'+hours:hours
+      minutes = minutes<10? '0'+minutes:minutes
+      seconds = seconds<10? '0'+seconds:seconds
+      // 输出现在的年月日
+      next.innerHTML=`今天是${time.getFullYear()}年${time.getMonth()+1}月${time.getDate()}日`
+      // 显示倒计时数值时分秒
+      hour.innerHTML=hours
+      minute.innerHTML=minutes
+      second.innerHTML=seconds
+    },1000)
+    </script>
+ 
+</body>
+ 
+</html>
